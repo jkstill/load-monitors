@@ -1,0 +1,21 @@
+*\.xlsx
+logs/
+
+*.tgz
+snapper.sql
+snapper4.sql
+afiedt.buf
+.shist_devpts*.poirot
+.shist_not a tty.poirot
+RCS/
+??.pl
+?.pl
+?
+logs/
+password.txt
+???.sql
+??.sql
+?.sql
+view.txt
+.*.swp
+
