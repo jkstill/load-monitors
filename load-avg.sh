@@ -3,6 +3,25 @@
 unset LOADS
 
 
+usage() {
+cat <<EOF
+
+Usage: $0
+
+Check the load average every '-c' seconds.
+When the load average reaches '-l' during the load '-s' seconds then print alert
+
+-c check the load every N seconds
+   defaults to 60
+-s check the average over the past N seconds
+   defaults to 60
+-l the load average threshold to check
+   defaults to 5
+
+EOF
+
+}
+
 : <<'PYTHIAN-DOC'
 
 Check the load ever $chkFrequency seconds
@@ -14,21 +33,22 @@ PYTHIAN-DOC
 
 DEBUG=0
 
-while getopts c:s:l:d arg
+while getopts hc:s:l:d arg
 do
 	case $arg in
 		c) chkFrequency=$OPTARG;;
 		s) thresholdSeconds=$OPTARG;;
 		l) loadAvgThreshold=$OPTARG;;
 		d) DEBUG=1;;
-		*) echo "Incorrect usage"; exit 1;;
+		h|H|z|Z) usage; exit;;
+		*) usage;exit 1;;
 	esac
 done
 
 # defaults
 thresholdSeconds=${thresholdSeconds:-900}
 chkFrequency=${chkFrequency:-60}  # check every N seconds
-loadAvgThreshold=0
+loadAvgThreshold=${loadAvgThreshold:-5}
 debugLoadFudge=10
 
 #echo thresholdSeconds: $thresholdSeconds
