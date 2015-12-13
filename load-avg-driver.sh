@@ -1,14 +1,15 @@
-#!/bin/bash
 
 # load the functions
+
 FUNCTIONS_FILE=/home/jkstill/oracle/dba/load-monitors/load-functions.sh; export FUNCTIONS_FILE
+
 . $FUNCTIONS_FILE
 
 myPath=$(getScriptPath $0)
+
 #echo myPath: $myPath
 
 unset LOADS
-
 
 usage() {
 cat <<EOF
@@ -31,7 +32,7 @@ EOF
 
 : <<'PYTHIAN-DOC'
 
-Check the load ever $chkFrequency seconds
+Check the load every $chkFrequency seconds
 
 When the average of the collected load values meets or exceeds $loadAvgThreshold during the  
 previous $thresholdSecond then signal an alert
@@ -57,6 +58,7 @@ thresholdSeconds=${thresholdSeconds:-900}
 chkFrequency=${chkFrequency:-60}  # check every N seconds
 loadAvgThreshold=${loadAvgThreshold:-5}
 
+(( loadCountMax = ($thresholdSeconds / $chkFrequency) + 1 ))
 #echo thresholdSeconds: $thresholdSeconds
 
 [[ $chkFrequency -ge $thresholdSeconds ]] && {
@@ -70,6 +72,7 @@ loadAvgThreshold=${loadAvgThreshold:-5}
 #(( loadCountMax = ($thresholdSeconds / $chkFrequency) + 1 ))
 (( loadCountMax = ($thresholdSeconds / $chkFrequency) + 1 ))
 
+
 while :
 do
 
@@ -82,8 +85,6 @@ do
 		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 		echo Load Threshold of $loadAvgThreshold exceeded
 		echo Current load is $loadavg
-		echo
-		echo Do stuff here to capture metrics 
 		echo 
 	}
 
