@@ -30,8 +30,10 @@ This script is similar to snap_mon.sh, but runs snapper.sql rather than StatsPac
 
 Get current snapper.sql and snapper4.sql 
 
+<pre>
 wget http://blog.tanelpoder.com/files/scripts/snapper.sql
 wget http://blog.tanelpoder.com/files/scripts/snapper4.sql
+</pre>
 
 <h3> Capture SQL Executions for Avail </h3>
 
