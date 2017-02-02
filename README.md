@@ -35,7 +35,13 @@ wget http://blog.tanelpoder.com/files/scripts/snapper.sql
 wget http://blog.tanelpoder.com/files/scripts/snapper4.sql
 </pre>
 
-<h3> Capture SQL Executions for Avail </h3>
+<h3> Capture SQL Executions </h3>
+
+Used when I suspect there are a large number of executions causing high loads during a short period of time.
+These script will collect sql_id + executions from v$sqlstats
+Call with sql_exec_mon.sh
+Exits after approx 1 day of snapshots
+
 
 sql_exec_mon.sh: Capture SQL executions during high load
 
