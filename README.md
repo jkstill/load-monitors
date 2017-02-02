@@ -22,7 +22,7 @@ snapNmin.sql:
 Creates two level 7 StatsPack snapshots, runs a report and saves to local dir
 
 
-<h3> Captures Snapper report during high load === 
+<h3> Captures Snapper report during high load </h3>
 
 snapper_mon.sh:
 When load reaches threshold, run snapper a configurable number of times
