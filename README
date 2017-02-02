@@ -1,14 +1,14 @@
 
-scripts used to watch for a trigger event and run a script
+Scripts used to watch for a trigger event and run a script
 
-=== Capture Load ===
+<h3> Capture Load </h3>
 
 Capture load average every 10 seconds.
 
 load_mon.sh:
 
 
-=== Capture StatsPack Snapshots during High Load ===
+<h3> Capture StatsPack Snapshots during High Load </h3>
 
 Load average is monitored 
 During high load, three level 7 Statspack Snapshots are captured at two minute intervals.
@@ -22,7 +22,7 @@ snapNmin.sql:
 Creates two level 7 StatsPack snapshots, runs a report and saves to local dir
 
 
-=== Captures Snapper report during high load === 
+<h3> Captures Snapper report during high load === 
 
 snapper_mon.sh:
 When load reaches threshold, run snapper a configurable number of times
@@ -33,7 +33,7 @@ Get current snapper.sql and snapper4.sql
 wget http://blog.tanelpoder.com/files/scripts/snapper.sql
 wget http://blog.tanelpoder.com/files/scripts/snapper4.sql
 
-=== Capture SQL Executions for Avail ===
+<h3> Capture SQL Executions for Avail </h3>
 
 sql_exec_mon.sh: Capture SQL executions during high load
 
@@ -41,7 +41,7 @@ create_sql_executions.sql: Create tables used by update_save_sqlstats.sql
 
 update_save_sqlstats.sql: save sql exe stats
 
-=== Other stuff ===
+<h3> Other stuff </h3>
 
 get_bind_values.sql: get bind values for a query
 
