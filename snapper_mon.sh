@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 
 # watch for high load and run snapper.sh 
@@ -23,15 +23,49 @@ SNAP_DURATION=$2
 SNAP_THRESHOLD=$3
 : ${SNAP_THRESHOLD:=3}
 
+# set the environment here as needed
 unset SQLPATH
-export ORACLE_BASE=/opt/oracle
-export ORACLE_HOME=/opt/oracle/product/10g
-export ORACLE_SID=PRODRAC2
 export PATH=$ORACLE_HOME/bin:$PATH
+unset ORAENV_ASK
+PATH=$PATH:/usr/local/bin
+. /usr/local/bin/oraenv <<< c12 >/dev/null
 
-_CUT=/bin/cut
+_CUT=$(./hard-path.sh cut)
+[[ -x $_CUT ]] || {
+	echo
+	echo Cannot locate cut command
+	echo aborting
+	echo
+	exit 1
+}
+
+_GREP=$(./hard-path.sh grep)
+[[ -x $_GREP ]] || {
+	echo
+	echo Cannot locate grep command
+	echo aborting
+	echo
+	exit 1
+}
+
 _SQLPLUS=$ORACLE_HOME/bin/sqlplus
-_MAIL=/bin/mail
+[[ -x $_SQLPLUS ]] || {
+	echo
+	echo Cannot locate sqlplus command
+	echo aborting
+	echo
+	exit 1
+}
+
+# this will be the path to mailx, mail, cat in that order, as available
+# of just plain 'cat ' - see the script
+_MAIL=$(./get-mailer.sh);
+
+if ( echo $_MAIL | $_GREP cat >/dev/null ); then
+	_MAIL="$_MAIL # "
+fi
+
+#echo _MAIL: $_MAIL
 
 SLEEPTIME=60
 SNAPCOUNT=0
@@ -54,7 +88,7 @@ do
 		exit
 		EOF
 
-		echo "Snapper - just ran snapper on $HOSTNAME due to load of $LOADAVG - results in user_dump" | $_MAIL -s "$HOSTNAME - High Load Snapshot" $NOTIFY_LIST
+		eval "echo \"Snapper - just ran snapper on $HOSTNAME due to load of $LOADAVG - results in user_dump\" | $_MAIL \"$HOSTNAME - High Load Snapshot\" $NOTIFY_LIST"
 	fi
 
 	[ "$SNAPCOUNT" -ge "$SNAP_THRESHOLD" ] && exit
