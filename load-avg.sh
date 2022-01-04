@@ -29,14 +29,14 @@ EOF
 
 }
 
-: <<'PYTHIAN-DOC'
+: <<'DOC'
 
 Check the load ever $chkFrequency seconds
 
 When the average of the collected load values meets or exceeds $loadAvgThreshold during the  
 previous $thresholdSecond then signal an alert
 
-PYTHIAN-DOC
+DOC
 
 DEBUG=0
 

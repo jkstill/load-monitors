@@ -56,7 +56,7 @@ LOAD_THRESHOLD=39
 SNAPCOUNT=0
 SNAP_THRESHOLD=3
 
-NOTIFY_LIST='still@pythian.com team12@pythian.com'
+NOTIFY_LIST='some-dba@yourdomain.com'
 
 while :
 do

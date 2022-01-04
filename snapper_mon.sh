@@ -70,7 +70,7 @@ fi
 SLEEPTIME=60
 SNAPCOUNT=0
 
-NOTIFY_LIST='still@pythian.com team12@pythian.com'
+NOTIFY_LIST='some-dba@yourdomain.com'
 
 while :
 do
