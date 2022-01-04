@@ -41,6 +41,74 @@ Check the MAPID_KFFOF values average every '-c' seconds.
 
 Additionaly, the data is stored in `csv/xkffof-mon.csv` for later use.
 
+### Setup
+
+Downloads the code from [load-monitors - cx branch](https://github.com/jkstill/load-monitors/tree/cx)
+
+Be sure to get the cx branch.
+
+Once downloaded, edit the following lines at the top of the `xkffof-mon.sh` script
+
+```bash
+# change as needed
+declare NOTIFY_LIST='some-dba@yourdomain.com,another-dba@yourdomain.com'
+
+# leave blank for connecting as '/ as sysasm' locally
+declare ORA_USER=''
+declare ORA_PASSWORD=''
+declare ORA_CONNECT=''
+
+declare ORA_USER='sys'
+declare ORA_PASSWORD='password'
+# the '@' is required
+declare ORA_CONNECT='@someserver/+ASM'
+
+# edit this location as needed
+# load the functions
+declare FUNCTIONS_FILE=/home/jkstill/oracle/dba/load-monitors/load-functions.sh; export FUNCTIONS_FILE
+```
+
+### Running
+
+#### Test it first
+
+Check every 5 seconds with a low threshold:
+
+```text
+./xkffof-mon.sh -c 5 -t 10
+```
+
+You probably will not see any output on the screen.
+
+The will be a file `csv/xkffof-mon.csv`
+
+If that is working, stop the script with CTL-C. 
+
+Remove the file `csv/xkffof-mon.csv` if you like.
+
+Now start it for real.
+
+Here we are running with an interval of 1 hour, and a threshold growth value of 10000 for MAPID_KFFOF (same as default settings)
+
+```text
+$  nohup ./xkffof-mon.sh -c 3600 -t 10000 &
+[1] 30359
+$  nohup: ignoring input and appending output to 'nohup.out'
+
+$  ls -l nohup.out
+-rw------- 1 jkstill dba 0 2022-01-04 14:57 nohup.out
+
+$  ls -l csv/xkffof-mon.csv
+-rw-rw-r-- 1 jkstill dba 1749492 Jan  4 14:57 csv/xkffof-mon.csv
+
+$  ps -p  30359 -o cmd
+CMD
+bash ./xkffof-mon.sh -c 3600 -t 10000
+
+```
+
+You should get an email in the event the growth threshold is exceeded.
+(works in testing :)
 
 ## Capture Load 
 

@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
 
 # change as needed
-NOTIFY_LIST='jkstill@gmail.com,still@pythian.com'
+declare NOTIFY_LIST='some-dba@yourdomain.com,another-dba@yourdomain.com'
+
+# leave blank for connecting as '/ as sysasm' locally
+declare ORA_USER=''
+declare ORA_PASSWORD=''
+declare ORA_CONNECT=''
+
+# only needed if connecting remotely
+#declare ORA_USER='sys'
+#declare ORA_PASSWORD='password'
+# the '@' is required
+#declare ORA_CONNECT='@someserver/+ASM'
+
+#echo connect ${ORA_USER}/${ORA_PASSWORD}${ORA_CONNECT} as sysasm
 
 # edit this location as needed
 # load the functions
-FUNCTIONS_FILE=/home/jkstill/oracle/dba/load-monitors/load-functions.sh; export FUNCTIONS_FILE
+declare FUNCTIONS_FILE=/home/jkstill/oracle/dba/load-monitors/load-functions.sh; export FUNCTIONS_FILE
 
 # do not edit below here for normal usage
 
@@ -166,7 +179,7 @@ EOM
 
 	done < <(
 	sqlplus -L -S /nolog <<-EOF 
-		connect sys/grok@ora192rac01/+ASM as sysasm
+		connect ${ORA_USER}/${ORA_PASSWORD}${ORA_CONNECT} as sysasm
 		set pagesize 0
 		set linesize 400 trimspool on
 		set feedback off
