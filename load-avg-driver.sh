@@ -1,15 +1,18 @@
 
 # load the functions
 
-FUNCTIONS_FILE=/home/jkstill/oracle/dba/load-monitors/load-functions.sh; export FUNCTIONS_FILE
+declare scriptPath=$(dirname $0)
 
-. $FUNCTIONS_FILE
+cd $scriptPath
+[[ $? -ne 0 ]] && { echo "failed to cd to $scriptPath"; exit 1; }
 
-myPath=$(getScriptPath $0)
+FUNCTIONS_FILE=$scriptPath/load-functions.sh; export FUNCTIONS_FILE
 
-#echo myPath: $myPath
+[[ -r $FUNCTIONS_FILE ]] || { echo "cannot source $FUNCTIONS_FILE"; exit 1; }
 
-unset LOADS
+source ${FUNCTIONS_FILE}
+
+declare -a LOADS=()
 
 usage() {
 cat <<EOF
@@ -85,6 +88,8 @@ do
 		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 		echo Load Threshold of $loadAvgThreshold exceeded
 		echo Current load is $loadavg
+		echo 
+		echo Do something here!
 		echo 
 	}
 
