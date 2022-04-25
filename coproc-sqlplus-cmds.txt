@@ -8,13 +8,13 @@ host hostname
 host date
 host ip a
 
-@snapper ash 60 1 "select inst_id,sid from gv$session where status = 'ACTIVE' and state = 'WAITING' and type = 'USER'"
+@snapper ash 10 1 "select inst_id,sid from gv$session where status = 'ACTIVE' and state = 'WAITING' and type = 'USER'"
 
 # coproc-mon.sh will send this command, and immediatly try to get the outpu
-# but it will not be there, snapper.sql is sleeping for 60 seconds
+# but it will not be there, snapper.sql is sleeping for 10 seconds
 # so, add a sleep
 # this is a special command to tell the script to sleep
 
-coproc-sleep 60
+coproc-sleep 12
 
 
