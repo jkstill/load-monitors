@@ -1,5 +1,0 @@
-# the first non-blank non-comment line is the email message to send
-This is the message to send
-# the other lines are email addresses
-jkstill@gmail.com
-still@pythian.com
