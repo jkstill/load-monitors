@@ -3,18 +3,18 @@
 # blank and comment lines ignored
 # the sql scripts are located via SQLPATH
 
-@who2
-host hostname
-host date
-host ip a
+SQL:@who2
+CMD:host hostname
+CMD:host date
+CMD:host ip a
 
-@snapper ash 10 1 "select inst_id,sid from gv$session where status = 'ACTIVE' and state = 'WAITING' and type = 'USER'"
+SQL:@snapper ash 10 1 "select inst_id,sid from gv$session where status = 'ACTIVE' and state = 'WAITING' and type = 'USER'"
 
-# coproc-mon.sh will send this command, and immediatly try to get the outpu
+# coproc-mon.sh will send this command, and immediatly try to get the output
 # but it will not be there, snapper.sql is sleeping for 10 seconds
 # so, add a sleep
 # this is a special command to tell the script to sleep
 
-coproc-sleep 12
+CMD:coproc-sleep 12
 
 
