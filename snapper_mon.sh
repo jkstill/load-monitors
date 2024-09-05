@@ -14,6 +14,9 @@
 # 
 # if called with no args it will default to snapper_mon.sh 40 120 3
 
+#unset ORAENV_ASK
+#. oraenv <<< YOUR_SID_HERE
+
 LOAD_THRESHOLD=$1
 : ${LOAD_THRESHOLD:=40}
 
@@ -26,9 +29,6 @@ SNAP_THRESHOLD=$3
 # set the environment here as needed
 unset SQLPATH
 export PATH=$ORACLE_HOME/bin:$PATH
-unset ORAENV_ASK
-PATH=$PATH:/usr/local/bin
-. /usr/local/bin/oraenv <<< c12 >/dev/null
 
 _CUT=$(./hard-path.sh cut)
 [[ -x $_CUT ]] || {
